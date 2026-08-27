@@ -1,8 +1,12 @@
 # TE-Speed-FlashVSR 1.0
 
-[FlashVSR](https://github.com/OpenImagingLab/FlashVSR) 视频超分辨率放大 ComfyUI 节点，为放大视频带来全链路新一轮加速。
+FlashVSR视频超分辨率放大 ComfyUI 节点，为放大视频带来全链路新一轮加速。
 
-TE-Speed-FlashVSR 以 [FlashVSR](https://github.com/OpenImagingLab/FlashVSR) 推理项目为基础，加入独立的执行预算控制、空间分块、显存分阶段策略,使用新的 [SpargeAttn](https://github.com/thu-ml/SpargeAttn) 稀疏注意力适配，以及独家TE加速的视频合并编码节点,为放大视频带来全链路新一轮加速。
+TE-Speed-FlashVSR 以 [FlashVSR](https://github.com/OpenImagingLab/FlashVSR) 推理项目为基础，加入独立的执行预算控制、运动感知动态加速、动态调整策略,使用新的 [SpargeAttn](https://github.com/thu-ml/SpargeAttn) 稀疏注意力适配，以及独家TE加速的视频合并编码节点,为放大视频带来全链路新一轮加速。
+
+需要spas_sage_attn轮子: https://pan.quark.cn/s/bc51d1a415f6
+需要FlashVSR模型: https://pan.quark.cn/s/1c959a8eb44c
+需要python3.12及以上版本
 
 ## 1.0 
 
@@ -41,9 +45,6 @@ TE-Speed-FlashVSR 不只是将 FlashVSR 接入 ComfyUI。1.0 加入了面向视�
 - NVIDIA GPU
 - 支持当前 GPU 架构的 `spas_sage_attn` wheel
 - 使用 `block_sparse_attn` 后端时，需要兼容的 `block_sparse_attn` wheel
-
-spas_sage_attn轮子: https://pan.quark.cn/s/bc51d1a415f6
-
 - FFmpeg；TE-Speed Video Combine 默认使用 NVIDIA `h264_nvenc`
 
 
