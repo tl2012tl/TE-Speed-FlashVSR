@@ -16,20 +16,31 @@ from ...te_runtime.attention import (
 
 try:
     import flash_attn_interface
-    FLASH_ATTN_3_AVAILABLE = True
-except ModuleNotFoundError:
+    FLASH_ATTN_3_AVAILABLE = callable(
+        getattr(flash_attn_interface, "flash_attn_func", None)
+    )
+except Exception:
+    flash_attn_interface = None
     FLASH_ATTN_3_AVAILABLE = False
 
 try:
     import flash_attn
-    FLASH_ATTN_2_AVAILABLE = True
-except ModuleNotFoundError:
+    # Some Windows builds leave a partially importable ``flash_attn`` module
+    # whose exported function is None. Import success alone is not enough to
+    # select this backend; otherwise Cross-Attention fails with
+    # ``TypeError: 'NoneType' object is not callable``.
+    FLASH_ATTN_2_AVAILABLE = callable(
+        getattr(flash_attn, "flash_attn_func", None)
+    )
+except Exception:
+    flash_attn = None
     FLASH_ATTN_2_AVAILABLE = False
 
 try:
     from sageattention import sageattn
-    SAGE_ATTN_AVAILABLE = True
-except ModuleNotFoundError:
+    SAGE_ATTN_AVAILABLE = callable(sageattn)
+except Exception:
+    sageattn = None
     SAGE_ATTN_AVAILABLE = False
 
 from PIL import Image
