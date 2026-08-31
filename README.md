@@ -1,4 +1,4 @@
-# TE-Speed-FlashVSR 1.0
+# TE-Speed-FlashVSR 1.1
 
 FlashVSR视频超分辨率放大 ComfyUI 节点，为放大视频带来全链路新一轮加速。
 
@@ -7,6 +7,11 @@ TE-Speed-FlashVSR 以 [FlashVSR](https://github.com/OpenImagingLab/FlashVSR) 推
 需要spas_sage_attn轮子: https://pan.quark.cn/s/bc51d1a415f6
 需要FlashVSR模型: https://pan.quark.cn/s/1c959a8eb44c
 需要python3.12及以上版本
+
+## 1.1
+
+- `TE-Speed Video Combine` 连接音频时只保留一个最终视频文件，不再额外留下无音频中间视频或 `-audio.mp4` 文件。
+- `filename_prefix` 支持自定义子目录、自动序号和时间变量，可按日期与时间命名输出视频。
 
 ## 1.0 
 
@@ -131,10 +136,45 @@ ComfyUI/models/FlashVSR-v1.1/
 
 - `images`：连接 TE-Speed-FlashVSR 输出的帧。
 - `frame_rate`：输出帧率。
-- `filename_prefix`：输出文件名前缀。
+- `filename_prefix`：输出文件名前缀，可包含子目录、时间变量和自动序号。
 - `value`：并行处理级别，默认 3。
 - `save_output`：保存到 ComfyUI 输出目录。
 - `audio`：可选，连接音频。
+
+默认输出名称为：
+
+```text
+TE-Speed-FlashVSR_00001.mp4
+```
+
+时间变量示例：
+
+```text
+TE-Speed-FlashVSR_%date:yyyyMMdd_HHmmss%
+```
+
+输出示例：
+
+```text
+TE-Speed-FlashVSR_20260831_154230_00001.mp4
+```
+
+支持的 `%date:...%` 格式变量：
+
+- `yyyy`：四位年份
+- `yy`：两位年份
+- `MM`：月份
+- `dd`：日期
+- `HH`：24 小时制小时
+- `mm`：分钟
+- `ss`：秒
+- `fff`：毫秒
+
+也兼容 `%year%`、`%month%`、`%day%`、`%hour%`、`%minute%`、`%second%`，以及 `%width%`、`%height%` 视频尺寸变量。例如：
+
+```text
+TE-Speed-FlashVSR/%date:yyyy/MM/dd%/upscale_%width%x%height%
+```
 
 
 
